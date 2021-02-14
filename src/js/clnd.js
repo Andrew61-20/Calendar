@@ -159,7 +159,7 @@ modalHidden1.addEventListener("click", e => {
 
 btnCreate.addEventListener("click", e => {
     if (titleddBtn2.textContent !== "Select day" && titleddBtn3.textContent !== "0:00" &&
-        arr.length > 1) {
+        arr.length > 1 && nameOfMeeting.value.length > 0) {
         dayTh.forEach (el => {
             timeTh.forEach (item => {
                 if (titleddBtn2.textContent.includes(el.textContent) &&
@@ -170,19 +170,19 @@ btnCreate.addEventListener("click", e => {
                                 p.parentNode.setAttribute("data-participants", titleddBtnP.textContent);
                                 p.parentNode.classList.add("back");
                                 p.classList.replace("invisible", "backClose");
-                                if (nameOfMeeting.value.length > 0) {
-                                    p.parentNode.firstChild.textContent = nameOfMeeting.value;
-                                }
+                                p.parentNode.firstChild.textContent = nameOfMeeting.value;
                                 if (p.parentNode.classList.contains("back")) {
                                     p.addEventListener("click", e => {
                                         modalHidden2.classList.replace("modal-hidden2", "show");
                                         inmodal2.textContent = `Are you sure you want to delete "${p.parentNode.firstChild.textContent}" event ?`
                                         yesbtn.addEventListener("click", e => {
-                                            p.parentNode.lastChild.classList.replace("backClose", "invisible");
-                                            p.parentNode.classList.remove("back");
-                                            p.parentNode.firstChild.textContent = "";
-                                            p.parentNode.removeAttribute("data-participants");
-                                            modalHidden2.classList.replace("show", "modal-hidden2");
+                                            if(inmodal2.textContent.includes(p.parentNode.firstChild.textContent)) {
+                                                p.parentNode.lastChild.classList.replace("backClose", "invisible");
+                                                p.parentNode.classList.remove("back");
+                                                p.parentNode.firstChild.textContent = "";
+                                                p.parentNode.removeAttribute("data-participants");
+                                                modalHidden2.classList.replace("show", "modal-hidden2");
+                                            }
                                         })
                                     })
                                 }
